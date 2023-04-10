@@ -64,7 +64,7 @@ export default function NavbarDesktop() {
               <VStack
                 w={'100%'}
                 justifyContent={'space-between'}
-                spacing={'1rem'}
+                spacing={'1.5rem'}
               >
                 <SocialLinks />
                 <MenuItems
@@ -116,7 +116,7 @@ function SocialLinks() {
       w={'100%'}
       justifyContent={'flex-end'}
       alignItems={'center'}
-      spacing={'2.5%'}
+      spacing={'3%'}
     >
       {socialLinks.map((socialLink) => (
         <HStack
@@ -124,6 +124,7 @@ function SocialLinks() {
           href={socialLink.href}
           key={socialLink.name}
           isExternal
+          _hover={{ textDecor: '0', color: 'brand' }}
         >
           {socialLink.icon && <Icon as={socialLink.icon} boxSize={'15%'} />}
           <Heading fontSize={'sm'} fontWeight={'medium'}>
@@ -149,7 +150,7 @@ function MenuItems(props: IMenuItems) {
       alignItems={'center'}
       spacing={'0'}
     >
-      <Box w={'40%'}>
+      <Box w={'30%'}>
         <InputGroup w={'90%'}>
           <InputLeftElement pointerEvents={'none'}>
             <Icon as={BiSearch} />
@@ -165,23 +166,32 @@ function MenuItems(props: IMenuItems) {
       </Box>
       <Flex w={'60%'} justifyContent={'space-between'}>
         {navItems.map((navItem) => (
-          <Heading
+          <VStack
             key={navItem.label}
-            fontSize={'lg'}
-            as={'button'}
-            onClick={() => onItemChange(navItem)}
-            transition={'all 75ms ease-out'}
-            style={
-              navItem !== currentItem
-                ? {}
-                : {
-                    borderBottomWidth: 'thick',
-                    borderColor: 'black',
-                  }
-            }
+            w={'fit-content'}
+            spacing={'0.3rem'}
+            pos={'relative'}
           >
-            {navItem.label}
-          </Heading>
+            <Heading
+              fontSize={'lg'}
+              as={'button'}
+              onClick={() => onItemChange(navItem)}
+              transition={'all 75ms ease-out'}
+              _hover={{ color: navItem.focusColor }}
+              color={navItem === currentItem ? navItem.focusColor : 'inherit'}
+            >
+              {navItem.label}
+            </Heading>
+            <Box
+              pos={'absolute'}
+              top={'5'}
+              left={'0'}
+              w={navItem === currentItem ? '100%' : '0%'}
+              transition={'width 150ms ease-in'}
+              bgColor={navItem.focusColor}
+              h={'2.5px'}
+            />
+          </VStack>
         ))}
       </Flex>
     </HStack>
