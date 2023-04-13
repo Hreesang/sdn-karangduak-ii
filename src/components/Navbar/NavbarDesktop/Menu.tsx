@@ -20,27 +20,6 @@ import {
 import Link from '@/components/Link';
 
 import { BiSearch } from 'react-icons/bi';
-import { GiHamburgerMenu } from 'react-icons/gi';
-
-export function MenuDrawer() {
-  return (
-    <Flex
-      display={'flex'}
-      justifyContent={'center'}
-      alignItems={'center'}
-      w={'100%'}
-    >
-      <IconButton
-        aria-label={'Menu Drawer'}
-        icon={<GiHamburgerMenu />}
-        size={'lg'}
-        variant={'ghost'}
-        _hover={{ background: 0 }}
-        _focus={{ background: 0, border: 0 }}
-      />
-    </Flex>
-  );
-}
 
 export interface IMenuProps {
   currentFocusMenu?: INavbarMenu;
@@ -57,8 +36,8 @@ export function Menu(props: IMenuProps) {
       alignItems={'center'}
       spacing={'0'}
     >
-      <Box w={'30%'}>
-        <InputGroup w={'90%'}>
+      <Box w={'50%'} pr={'5rem'}>
+        <InputGroup w={'100%'}>
           <InputLeftElement pointerEvents={'none'}>
             <Icon as={BiSearch} />
           </InputLeftElement>
@@ -84,6 +63,7 @@ export function Menu(props: IMenuProps) {
                 fontSize={'lg'}
                 as={'button'}
                 onClick={() => onFocusMenuChange(menu)}
+                whiteSpace={'nowrap'}
                 transition={'all 75ms ease-out'}
                 _hover={{ color: menu.focusColor }}
                 color={menu === currentFocusMenu ? menu.focusColor : 'inherit'}
@@ -116,11 +96,7 @@ export function MenuContent(props: IMenuContentProps) {
   return (
     <Box w={'100%'}>
       {navbarMenu.map((menu) => (
-        <Collapse
-          key={menu.label}
-          in={currentFocusMenu === menu}
-          animateOpacity
-        >
+        <Collapse key={menu.id} in={currentFocusMenu === menu} animateOpacity>
           <HStack
             justifyContent={'center'}
             alignItems={'center'}
@@ -130,7 +106,7 @@ export function MenuContent(props: IMenuContentProps) {
             pb={'1.5rem'}
           >
             {menu.categories.map((category) => (
-              <MenuContentCategory key={category.label} category={category} />
+              <MenuContentCategory key={category.id} category={category} />
             ))}
           </HStack>
         </Collapse>
@@ -147,17 +123,15 @@ function MenuContentCategory(props: IMenuContentCategoryProps) {
   const { category } = props;
 
   return (
-    <VStack justifyContent={'flex-start'}>
-      <Box>
-        <Heading fontWeight={'semibold'} fontSize={'md'}>
-          {category.label}
+    <VStack display={'block'} justifyContent={'flex-start'} spacing={'0.75rem'}>
+      <Heading fontWeight={'medium'} fontSize={'md'}>
+        {category.label}
+      </Heading>
+      {category.items.map((item) => (
+        <Heading key={item.id} fontWeight={'light'} fontSize={'sm'}>
+          <Link href={item.href}>{item.label}</Link>
         </Heading>
-        {category.items.map((item) => (
-          <Heading key={item.label} fontWeight={'normal'} fontSize={'md'}>
-            <Link href={item.href}>{item.label}</Link>
-          </Heading>
-        ))}
-      </Box>
+      ))}
     </VStack>
   );
 }

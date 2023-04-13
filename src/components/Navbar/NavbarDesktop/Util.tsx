@@ -20,7 +20,7 @@ export default function Util() {
           _hover={{ textDecor: '0', color: 'brand' }}
         >
           {util.icon && <Icon as={util.icon} boxSize={'15%'} />}
-          <Heading fontSize={'sm'} fontWeight={'medium'}>
+          <Heading fontSize={'sm'} fontWeight={'light'}>
             {util.label}
           </Heading>
         </HStack>
