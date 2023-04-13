@@ -16,7 +16,10 @@ export default function NavbarMobile() {
         w={'100vw'}
         justifyContent={'space-between'}
         alignItems={'center'}
-        p={'0.5rem 2.5rem'}
+        pt={'0.5rem'}
+        pb={'0.5rem'}
+        pl={['0.5rem', '1rem']}
+        pr={['0.5rem', '1rem']}
         boxShadow={
           'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px'
         }
