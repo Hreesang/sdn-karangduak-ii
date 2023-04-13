@@ -13,7 +13,6 @@ import {
   Input,
   InputLeftElement,
   Icon,
-  IconButton,
   Heading,
   Collapse,
 } from '@chakra-ui/react';
